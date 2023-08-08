@@ -1,0 +1,27 @@
+{
+  "name": "logo-generator",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "jest"
+  },
+  "keywords": [],
+  "author": "Mohan Beckford",
+  "license": "ISC",
+  
+  "dependencies": {
+    "inquirer": "^9.2.10",
+    "jest": "^29.6.2"
+  },
+  
+  "type": "commonjs"
+
+  "jest": {
+    "transform": {
+      "^.+\\.js$": "babel-jest"
+    }
+  }
+  
+}

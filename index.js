@@ -1,28 +1,29 @@
-// const inquirer = require('inquirer');
+const inquirer = require('inquirer');
 const fs = require('fs');
-
-// const shapes = require('./lib/shapes.test');
-
-const shapes = await import('./lib/shapes');
+const shapes = require('./lib/shapes');
 
 const Circle = shapes.Circle;
 const Triangle = shapes.Triangle;
 const Square = shapes.Square;
 
 async function validateColorInput(input) {
-
-    // VALIDATE HEXADECIMAL COLOUR CODE
-    // const hexColorRegex = /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/;
+    const hexColorRegex = /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/;
     
-    if (input.match(hexColorRegex) || input.toLowerCase() === 'red') {
+    if (input.match(hexColorRegex)) {
+        return true;
+    }
+
+    // CHECKING FOR VALID COLOUR NAMES
+    const colorKeywords = ['red', 'blue', 'green', 'yellow', 'orange', 'purple']; 
+    if (colorKeywords.includes(input.toLowerCase())) {
         return true;
     }
     
-    return 'Please enter a valid color keyword or hexadecimal color code (e.g., "#FF0000" or "red").';
+    return 'Please enter a valid color keyword, color name, or hexadecimal color code (e.g., "red", "#FF0000").';
 }
 
+
 async function generateLogo() {
-    const inquirer = await import('inquirer');
     const userInput = await inquirer.prompt([
         {
             type: 'input',
@@ -74,11 +75,13 @@ async function generateLogo() {
 
     const svgCode = `
         <svg width="300" height="200" xmlns="http://www.w3.org/2000/svg">
-            <!-- Add text SVG element here using userInput.text and userInput.textColor -->
-            <text x="150" y="100" text-anchor="middle" fill="${userInput.textColor}">
-            ${userInput.text}
-            </text>
+            <!-- Add shape SVG element -->
             ${selectedShape.generateSVG()}
+            
+            <!-- Add text SVG element -->
+            <text x="150" y="120" text-anchor="middle" fill="${userInput.textColor}" font-size="70">
+                ${userInput.text}
+            </text>
         </svg>
     `;
 

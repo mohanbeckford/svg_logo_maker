@@ -6,6 +6,8 @@ const Circle = shapes.Circle;
 const Triangle = shapes.Triangle;
 const Square = shapes.Square;
 
+
+// CHECKING AND VALIDATING HEX CODES
 async function validateColorInput(input) {
     const hexColorRegex = /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/;
     
@@ -22,7 +24,7 @@ async function validateColorInput(input) {
     return 'Please enter a valid color keyword, color name, or hexadecimal color code (e.g., "red", "#FF0000").';
 }
 
-
+// PROMPTS FOR COLLECTING THE DETAILS NEEDED TO GENERATE THE LOGO
 async function generateLogo() {
     const userInput = await inquirer.prompt([
         {
@@ -57,6 +59,8 @@ async function generateLogo() {
         },
     ]);
 
+// THE BELOW CODE IS USED TO DETERMINE THE SHAPE TO BE CREATED BASED ON THE USER INPUT
+
     let selectedShape;
     switch (userInput.shape) {
         case 'Circle':
@@ -73,6 +77,7 @@ async function generateLogo() {
             return;
     }
 
+    // THE BELOW CODE GENERATES THE SVG CODE AS A STRING
     const svgCode = `
         <svg width="300" height="200" xmlns="http://www.w3.org/2000/svg">
             <!-- Add shape SVG element -->
